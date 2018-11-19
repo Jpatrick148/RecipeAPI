@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -16,12 +17,15 @@ namespace SearchWebApp.Controllers
     {
         private RecipeContext db = new RecipeContext();
 
-        
+        public ActionResult UserInput()
+        {
+            return View();
+        }
 
         public ActionResult Search(string userSearches)
         {
             
-            HttpWebRequest request = WebRequest.CreateHttp("https://api.edamam.com/search?app_id=fe7c1a1d&app_key=5304c08e1fe3221883096e724828bf89" + "&q=" + "chicken");
+            HttpWebRequest request = WebRequest.CreateHttp("https://api.edamam.com/search?app_id=fe7c1a1d&app_key=5304c08e1fe3221883096e724828bf89" + "&q=" + userSearches);
             HttpWebResponse response = (HttpWebResponse) request.GetResponse();
 
             StreamReader rd = new StreamReader(response.GetResponseStream());
@@ -31,6 +35,7 @@ namespace SearchWebApp.Controllers
             List<JToken> listR = SearchResultJSON["hits"].ToList(); // EDIT JSON PATH HERE
 
             List<Recipe> output = new List<Recipe>();
+            Session["UsersSearchedList"] = output;
 
             for (int i = 0; i < listR.Count ; i++)
             {
@@ -47,8 +52,23 @@ namespace SearchWebApp.Controllers
             return View(output);
         }
 
-        
+        public ActionResult Favorites(string IsFavorite)
+        {
+            List<Recipe> output = (List<Recipe>) Session["UsersSearchedList"];
+            foreach (Recipe r in output)
+            {
+                if (IsFavorite != null)
+                {
+                    db.Recipes.Add(r);
+                    db.SaveChanges();
+                    ;
+                    return View(db.Recipes);
+                }
+            }
 
+            return RedirectToAction("Search");
+        }
+        
 
 
         // GET: Search

@@ -2,9 +2,17 @@
 
 
 <h2>Your List:</h2>
+<form action="Favorites"
 
-@foreach (var r in Model)
-{
-    <p>@r.Name</p>
-    <p>@r.Calories</p>
+    @foreach (var r in Model) { <p>Name: @r.Name</p>
+    <p>Calories: @r.Calories</p>
+    <p><img src="@r.Description"/></p>
+    <p>Number of ingredients: @r.TotalIngrediance</p>
+    <p>Cook Time: @r.TotalCookTime</p>
+
+    
+        <p>Favorte: <input type="checkbox" name="IsFavorite" /></p><br/>
+    
 }
+<input type="submit" />
+</form>
