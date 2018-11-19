@@ -1,0 +1,10 @@
+﻿@model IEnumerable<SearchWebApp.Models.Recipe>
+
+
+<h2>Your List:</h2>
+
+@foreach (var r in Model)
+{
+    <p>@r.Name</p>
+    <p>@r.Calories</p>
+}
