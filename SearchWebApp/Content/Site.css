@@ -22,3 +22,17 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#RainbowText{
+    font-family: Arial;
+    font-size: 100px;
+    height: 270px;
+    background: red;
+    background: -webkit-linear-gradient(left, orange , yellow, green, cyan, blue, violet);
+    background: -o-linear-gradient(right, orange, yellow, green, cyan, blue, violet);
+    background: -moz-linear-gradient(right, orange, yellow, green, cyan, blue, violet);
+    background: linear-gradient(to right, orange , yellow, green, cyan, blue, violet);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 18vw;
+}

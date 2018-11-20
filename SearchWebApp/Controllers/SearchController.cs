@@ -54,6 +54,7 @@ namespace SearchWebApp.Controllers
 
         public ActionResult Favorites(string IsFavorite)
         {
+            
             List<Recipe> output = (List<Recipe>) Session["UsersSearchedList"];
             foreach (Recipe r in output)
             {
@@ -61,12 +62,9 @@ namespace SearchWebApp.Controllers
                 {
                     db.Recipes.Add(r);
                     db.SaveChanges();
-                    ;
-                    return View(db.Recipes);
                 }
             }
-
-            return RedirectToAction("Search");
+                return View(db.Recipes);
         }
         
 
